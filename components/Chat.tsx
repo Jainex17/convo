@@ -1,75 +1,19 @@
+"use client";
+
 import React from "react";
-type Message = {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-};
+import type { UIMessage } from 'ai';
 
-const fakeMessages: Message[] = [
-  {
-    id: "m2",
-    role: "user",
-    content: "Write a short tweet about learning Next.js with shadcn/ui.",
-  },
-  {
-    id: "m3",
-    role: "assistant",
-    content:
-      "Leveling up with Next.js + shadcn/ui ⚡️. Building fast, accessible UIs has never been easier. Loving the dev experience! #Nextjs #shadcn #React",
-  },
-  {
-    id: "m4",
-    role: "user",
-    content: "Nice. Can you also give me 3 bullet ideas for a blog intro?",
-  },
-  {
-    id: "m5",
-    role: "assistant",
-    content:
-      "- Why component ergonomics matter for velocity\n- How design systems unlock consistency\n- Tips to ship features faster with great UX",
-  },
-  {
-    id: "m6",
-    role: "assistant",
-    content:
-      "Leveling up with Next.js + shadcn/ui ⚡️. Building fast, accessible UIs has never been easier. Loving the dev experience! #Nextjs #shadcn #React",
-  },
-  {
-    id: "m7",
-    role: "user",
-    content: "Nice. Can you also give me 3 bullet ideas for a blog intro?",
-  },
-  {
-    id: "m8",
-    role: "assistant",
-    content:
-      "- Why component ergonomics matter for velocity\n- How design systems unlock consistency\n- Tips to ship features faster with great UX",
-  },
-  {
-    id: "m9",
-    role: "assistant",
-    content:
-      "Leveling up with Next.js + shadcn/ui ⚡️. Building fast, accessible UIs has never been easier. Loving the dev experience! #Nextjs #shadcn #React",
-  },
-  {
-    id: "m10",
-    role: "user",
-    content: "Nice. Can you also give me 3 bullet ideas for a blog intro?",
-  },
-  {
-    id: "m11",
-    role: "assistant",
-    content:
-      "- Why component ergonomics matter for velocity\n- How design systems unlock consistency\n- Tips to ship features faster with great UX",
-  },
-];
+interface ChatProps {
+  messages: UIMessage[];
+  isLoading: boolean;
+}
 
-export const Chat = () => {
+export const Chat = ({ messages, isLoading }: ChatProps) => {
+
   return (
     <div className="w-full pt-10 pb-[12rem]">
-
       <div className="w-2/3 mx-auto space-y-4">
-        {fakeMessages.map((message) => {
+        {messages.map((message) => {
           const isUser = message.role === "user";
           return (
             <div
@@ -78,18 +22,30 @@ export const Chat = () => {
             >
               <div
                 className={`rounded-lg px-4 py-2 text-sm leading-relaxed shadow-xs transition-colors ${
-                  isUser && "bg-secondary text-secondary-foreground"
+                  isUser ? "bg-secondary text-secondary-foreground" : "bg-transparent"
                 }`}
               >
-                {message.content.split("\n").map((line, idx) => (
-                  <p key={idx} className={idx > 0 ? "mt-2" : undefined}>
-                    {line}
-                  </p>
-                ))}
+                <div className="whitespace-pre-wrap">
+                  {message.parts?.map((part, partIndex) => {
+                    if (part.type === 'text') {
+                      return <p key={partIndex}>{part.text}</p>;
+                    }
+                    return null;
+                  })}
+                </div>
               </div>
             </div>
           );
         })}
+        {isLoading && (
+          <div className="flex w-full gap-3 justify-start">
+            <div className="rounded-lg px-4 py-2 text-sm leading-relaxed shadow-xs transition-colors bg-muted">
+              <div className="flex items-center gap-2">
+                <div className="animate-pulse">Thinking...</div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

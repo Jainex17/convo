@@ -6,20 +6,26 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSidebar } from "./ui/sidebar";
 import { Button } from "./ui/button";
 import {
-  ArrowDown,
-  ArrowDown10,
   ArrowUp,
   ChevronDown,
-  ChevronUp,
+  Loader2,
 } from "lucide-react";
 import { models } from "@/hooks/models";
 
-export const MessageInput = () => {
+
+interface MessageInputProps {
+  onSendMessage: (message: string) => void;
+  isLoading?: boolean;
+}
+
+export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: MessageInputProps) => {
   const [message, setMessage] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState(models[0]);
+  const isLoading = externalLoading || false;
+
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { isMobile, open, openMobile, state } = useSidebar();
+  const { isMobile, open, openMobile } = useSidebar();
   const isSidebarOpen = isMobile ? openMobile : open;
 
   const MIN_ROWS = 2;
@@ -56,7 +62,10 @@ export const MessageInput = () => {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(message);
+    if (message.trim() && !isLoading) {
+      onSendMessage(message.trim());
+      setMessage("");
+    }
   }
 
   return (
@@ -123,8 +132,8 @@ export const MessageInput = () => {
                   </div>
                 )}
               </div>
-              <Button variant="secondary" className="py-5 cursor-pointer">
-                <ArrowUp className="size-5" />
+              <Button variant="secondary" className="py-5 cursor-pointer" type="submit" disabled={isLoading}>
+                {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowUp className="size-5" />}
               </Button>
             </div>
           </div>
@@ -133,5 +142,3 @@ export const MessageInput = () => {
     </div>
   );
 };
-
-export default MessageInput;
