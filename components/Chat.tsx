@@ -12,7 +12,7 @@ export const Chat = ({ messages, isLoading }: ChatProps) => {
 
   return (
     <div className="w-full pt-10 pb-[12rem]">
-      <div className="w-2/3 mx-auto space-y-4">
+      <div className="w-2/3 mx-auto space-y-8">
         {messages.map((message) => {
           const isUser = message.role === "user";
           return (

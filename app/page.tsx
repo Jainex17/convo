@@ -1,27 +1,21 @@
 "use client";
 
-import { Chat } from '@/components/Chat'
 import { MessageInput } from '@/components/MessageInput'
-import { useChat } from '@ai-sdk/react'
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
-  const { messages, sendMessage, status } = useChat({
-    id: "main",
-  });
+  const router = useRouter();
 
-  const isLoading = status === 'streaming' || status === 'submitted';
-
-  const handleSendMessage = (content: string) => {
-    sendMessage({
-      role: 'user',
-      parts: [{ type: 'text', text: content }],
-    });
-  };
+  function handleSendMessage(message: string) {
+    const chatId = crypto.randomUUID();
+    
+    sessionStorage.setItem('initialMessage', message);
+    router.push(`/chat/${chatId}`);
+  }
 
   return (
     <div className="w-full min-h-screen">
-      <Chat messages={messages} isLoading={isLoading} />
-      <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+      <MessageInput onSendMessage={handleSendMessage} />
     </div>
-  )
+  );
 }
