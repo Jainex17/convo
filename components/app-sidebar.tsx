@@ -47,7 +47,7 @@ const data = {
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar className="select-none">
       <SidebarHeader className="pt-3">
         <SidebarMenu>
           <SidebarMenuItem className="flex justify-between items-center px-2">

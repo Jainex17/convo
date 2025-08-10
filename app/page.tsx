@@ -5,8 +5,8 @@ import MessageInput from '@/components/MessageInput'
 
 export default function Page() {
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <Chat />      
+    <div className="w-full min-h-screen">
+      <Chat />
       <MessageInput />
     </div>
   )

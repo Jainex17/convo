@@ -121,6 +121,36 @@
   }
 }
 
+* {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--ring) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 99px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--ring);
+  border-radius: 99px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /** Hide sidebar scrollbar */
 .sidebar {
   scrollbar-width: none; /* Firefox */
@@ -129,4 +159,3 @@
 .sidebar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-
