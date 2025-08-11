@@ -6,12 +6,11 @@ import { MessageInput } from "@/components/MessageInput";
 import { useChat } from "@ai-sdk/react";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const chatId = resolvedParams.id;
 
-    const resolvedParams = use(params);
-    const chatId = resolvedParams.id;
-    
-    const hasInitialized = useRef(false);
-    const [initialMessage, setInitialMessage] = useState<string | null>(null);
+  const hasInitialized = useRef(false);
+  const [initialMessage, setInitialMessage] = useState<string | null>(null);
 
   const { messages, sendMessage, status } = useChat({
     id: chatId,
@@ -23,9 +22,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }, []);
 
   useEffect(() => {
-      
-      if (initialMessage && !hasInitialized.current) {
-        console.log(initialMessage);
+    if (initialMessage && !hasInitialized.current) {
+      console.log(initialMessage);
       sendMessage({
         role: "user",
         parts: [{ type: "text", text: initialMessage }],
@@ -45,7 +43,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   };
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full h-[calc(100vh-14px)]">
       <Chat messages={messages} isLoading={isLoading} />
       <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
     </div>

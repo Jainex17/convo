@@ -39,7 +39,7 @@ export const Chat = ({ messages, isLoading }: ChatProps) => {
         })}
         {isLoading && (
           <div className="flex w-full gap-3 justify-start">
-            <div className="rounded-lg px-4 py-2 text-sm leading-relaxed shadow-xs transition-colors bg-muted">
+            <div className="rounded-lg px-4 py-2 text-sm leading-relaxed shadow-xs transition-colors">
               <div className="flex items-center gap-2">
                 <div className="animate-pulse">Thinking...</div>
               </div>

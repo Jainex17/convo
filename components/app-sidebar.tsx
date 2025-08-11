@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, LogsIcon, Search, Settings } from "lucide-react"
+"use client"
 
 import {
   Sidebar,
@@ -12,10 +12,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { NavUser } from "./nav-user"
 import { Button } from "./ui/button"
 import Link from "next/link"
+import { SidebarIcon } from "lucide-react"
 
 // Menu items.
 const items = [
@@ -46,11 +48,16 @@ const data = {
 }
 
 export function AppSidebar() {
+  const { 
+    open,    
+    setOpen,
+  } = useSidebar()
+  
   return (
-    <Sidebar className="select-none">
+    <Sidebar className="select-none" variant="floating">
       <SidebarHeader className="pt-3">
         <SidebarMenu>
-          <SidebarMenuItem className="flex justify-between items-center px-2">
+          <SidebarMenuItem className="flex justify-between items-center px-1">
             <Link href="/" className="text-xl font-medium">Convo</Link>
             <SidebarTrigger />
           </SidebarMenuItem>
@@ -58,7 +65,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="mx-2 sidebar">
         <SidebarGroup>
-        <div className="flex justify-center items-center px-2 pb-4">
+        <div className="flex justify-center items-center pb-4">
           <Button variant="default" className="w-full cursor-pointer">New Chat</Button>
         </div>
           <SidebarGroupContent>
@@ -67,7 +74,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={idx}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
-                      <span>{item.title}</span>
+                      <span className="py-3">{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -79,6 +86,13 @@ export function AppSidebar() {
       <SidebarFooter className="pb-3">
         <NavUser user={data.user} />
       </SidebarFooter>
+      {!open && (
+        <div className="fixed top-3 left-3">
+          <Button variant="secondary" onClick={() => setOpen(!open)}>
+            <SidebarIcon />
+          </Button>
+        </div>
+      )}
     </Sidebar>
   )
 }

@@ -28,7 +28,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
   const { isMobile, open, openMobile } = useSidebar();
   const isSidebarOpen = isMobile ? openMobile : open;
 
-  const MIN_ROWS = 2;
+  const MIN_ROWS = 1;
   const MAX_ROWS = 14;
   const LINE_HEIGHT_PX = 24;
 
@@ -81,6 +81,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
         >
           <div className="flex flex-col">
             <Textarea
+              autoFocus={true}
               value={message}
               onChange={(e) => {
                 setMessage(e.currentTarget.value);
