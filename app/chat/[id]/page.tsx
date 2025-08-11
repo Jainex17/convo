@@ -1,50 +1,12 @@
-"use client";
+import { Chat } from "@/components/chat";
 
-import { useEffect, useState, use, useRef } from "react";
-import { Chat } from "@/components/Chat";
-import { MessageInput } from "@/components/MessageInput";
-import { useChat } from "@ai-sdk/react";
-
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const chatId = resolvedParams.id;
-
-  const hasInitialized = useRef(false);
-  const [initialMessage, setInitialMessage] = useState<string | null>(null);
-
-  const { messages, sendMessage, status } = useChat({
-    id: chatId,
-  });
-
-  useEffect(() => {
-    const storedMessage = sessionStorage.getItem("initialMessage");
-    setInitialMessage(storedMessage);
-  }, []);
-
-  useEffect(() => {
-    if (initialMessage && !hasInitialized.current) {
-      sendMessage({
-        role: "user",
-        parts: [{ type: "text", text: initialMessage }],
-      });
-      hasInitialized.current = true;
-      sessionStorage.removeItem("initialMessage");
-    }
-  }, [initialMessage, sendMessage]);
-
-  const isLoading = status === "submitted";
-
-  const handleSendMessage = (content: string) => {
-    sendMessage({
-      role: "user",
-      parts: [{ type: "text", text: content }],
-    });
-  };
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const { id } = params;
 
   return (
     <div className="w-full min-h-screen">
-      <Chat messages={messages} isLoading={isLoading} />
-      <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+      <Chat id={id}/>
     </div>
   );
 }

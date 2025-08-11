@@ -18,6 +18,7 @@ import { NavUser } from "./nav-user"
 import { Button } from "./ui/button"
 import Link from "next/link"
 import { SidebarIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 // Menu items.
 const items = [
@@ -52,7 +53,7 @@ export function AppSidebar() {
     open,    
     setOpen,
   } = useSidebar()
-  
+  const router = useRouter();
   return (
     <Sidebar className="select-none" variant="floating">
       <SidebarHeader className="pt-3">
@@ -66,7 +67,11 @@ export function AppSidebar() {
       <SidebarContent className="mx-2 sidebar">
         <SidebarGroup>
         <div className="flex justify-center items-center pb-4">
-          <Button variant="default" className="w-full cursor-pointer">New Chat</Button>
+          <Button variant="default" className="w-full cursor-pointer"
+          onClick={() => {
+            router.push(`/`);
+          }}
+          >New Chat</Button>
         </div>
           <SidebarGroupContent>
             <SidebarMenu>

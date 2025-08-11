@@ -69,7 +69,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0">
+    <div className="fixed bottom-2 left-0 right-0">
       <div
         className={`w-full flex justify-center items-center transition-all duration-300 ${
           isSidebarOpen ? "pl-(--sidebar-width)" : ""
@@ -77,7 +77,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
       >
         <form
           onSubmit={handleSubmit}
-          className="rounded-t-2xl w-2/3 border border-(var(--border)) bg-input/10 backdrop-blur-xl"
+          className="rounded-2xl w-2/3 border border-(var(--border)) bg-input/10 backdrop-blur-xl"
         >
           <div className="flex flex-col">
             <Textarea
@@ -117,7 +117,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
                 </Button>
 
                 {isDropdownOpen && (
-                  <div className="absolute bottom-full w-40 mb-1 left-0 min-w-full bg-background border border-border rounded-md shadow-lg z-50">
+                  <div className="absolute bottom-full w-40 mb-1 left-0 min-w-full bg-background border rounded-md shadow-lg z-50">
                     {models.map((model) => (
                       <div
                         key={model.name}

@@ -1,21 +1,15 @@
 "use client";
 
-import { MessageInput } from '@/components/MessageInput'
-import { useRouter } from 'next/navigation';
+import { useRef } from "react";
+import { Chat } from "@/components/chat";
 
 export default function Page() {
-  const router = useRouter();
-
-  function handleSendMessage(message: string) {
-    const chatId = crypto.randomUUID();
-    
-    sessionStorage.setItem('initialMessage', message);
-    router.push(`/chat/${chatId}`);
-  }
+  const chatIdRef = useRef<string>(crypto.randomUUID());
+  const chatId = chatIdRef.current;
 
   return (
     <div className="w-full min-h-screen">
-      <MessageInput onSendMessage={handleSendMessage} />
+      <Chat id={chatId}/>
     </div>
   );
 }
