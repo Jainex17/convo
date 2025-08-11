@@ -23,7 +23,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   useEffect(() => {
     if (initialMessage && !hasInitialized.current) {
-      console.log(initialMessage);
       sendMessage({
         role: "user",
         parts: [{ type: "text", text: initialMessage }],
@@ -43,7 +42,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-14px)]">
+    <div className="w-full min-h-screen">
       <Chat messages={messages} isLoading={isLoading} />
       <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
     </div>
