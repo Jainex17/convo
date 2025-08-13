@@ -9,7 +9,7 @@ interface ChatProps {
   id: string;
 }
 
-export const Chat = ({ id }: ChatProps) => {
+const Chat = ({ id }: ChatProps) => {
 
   const { messages, sendMessage, status } = useChat({ id });
   const isLoading = status === "submitted";
@@ -31,3 +31,5 @@ export const Chat = ({ id }: ChatProps) => {
 
   );
 };
+
+export default Chat;
