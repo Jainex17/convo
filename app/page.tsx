@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Chat from "@/components/chat";
+import Chat from "@/components/Chat";
 
 export default function Page() {
   const chatIdRef = useRef<string>(crypto.randomUUID());

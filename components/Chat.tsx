@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useChat } from "@ai-sdk/react";
-import { MessageInput } from "./messageInput";
-import { Messages } from "./messages";
+import { MessageInput } from "./MessageInput";
+import { Messages } from "./Messages";
 
 interface ChatProps {
   id: string;

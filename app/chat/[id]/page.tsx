@@ -1,4 +1,4 @@
-import Chat from "@/components/chat";
+import Chat from "@/components/Chat";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
