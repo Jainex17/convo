@@ -6,7 +6,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -20,7 +19,6 @@ import Link from "next/link"
 import { SidebarIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-// Menu items.
 const items = [
   {
     title: "Short title",

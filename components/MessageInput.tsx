@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { models } from "@/hooks/models";
 
-
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
   isLoading?: boolean;
@@ -25,6 +24,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
   const isLoading = externalLoading || false;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { isMobile, open, openMobile } = useSidebar();
   const isSidebarOpen = isMobile ? openMobile : open;
 
@@ -60,11 +60,20 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
     el.style.overflowY = el.scrollHeight > maxPx ? "auto" : "hidden";
   }
 
+  function resetTextareaHeight() {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${MIN_ROWS * LINE_HEIGHT_PX}px`;
+      textareaRef.current.style.overflowY = "hidden";
+    }
+  }
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (message.trim() && !isLoading) {
       onSendMessage(message.trim());
       setMessage("");
+      resetTextareaHeight();
     }
   }
 
@@ -81,6 +90,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
         >
           <div className="flex flex-col">
             <Textarea
+              ref={textareaRef}
               autoFocus={true}
               value={message}
               onChange={(e) => {
@@ -133,7 +143,7 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
                   </div>
                 )}
               </div>
-              <Button variant="secondary" className="py-5 cursor-pointer" type="submit" disabled={isLoading}>
+              <Button variant="secondary" className="py-5 cursor-pointer" type="submit" disabled={isLoading || !message.trim()}>
                 {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowUp className="size-5" />}
               </Button>
             </div>
