@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Loader2, Key, ArrowDownLeft, ArrowDownRight, ArrowUpLeft, ArrowUpRight } from "lucide-react";
+import { ArrowDownLeft, ArrowDownRight, ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { signIn } from "@/lib/auth/auth-client";
 
 export default function SignIn() {
@@ -27,13 +27,11 @@ export default function SignIn() {
                 callbackURL: "/",
               },
               {
-                onRequest: (ctx) => {
+                onRequest: () => {
                   setLoading(true);
                 },
-                onResponse: (ctx) => {
+                onResponse: () => {
                   setLoading(false);
-
-                  console.log(ctx);
                 },
               }
             );
