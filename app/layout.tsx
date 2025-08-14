@@ -29,10 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="w-full">{children}</main>
-        </SidebarProvider>
+            {children}
       </body>
     </html>
   );

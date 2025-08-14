@@ -18,7 +18,7 @@ import { Button } from "./ui/button"
 import Link from "next/link"
 import { SidebarIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
-
+import { useSession } from "@/lib/auth/auth-client"
 const items = [
   {
     title: "Short title",
@@ -38,20 +38,15 @@ const items = [
   },
 ]
 
-const data = {
-  user: {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    avatar: "https://github.com/shadcn.png",
-  },
-}
-
 export function AppSidebar() {
   const { 
     open,    
     setOpen,
   } = useSidebar()
+  
   const router = useRouter();
+  const { data: session } = useSession();
+  
   return (
     <Sidebar className="select-none" variant="floating">
       <SidebarHeader className="pt-3">
@@ -87,7 +82,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="pb-3">
-        <NavUser user={data.user} />
+        {session?.user && <NavUser user={session.user} />}
       </SidebarFooter>
       {!open && (
         <div className="fixed top-3 left-3">
