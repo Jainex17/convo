@@ -19,24 +19,8 @@ import Link from "next/link"
 import { SidebarIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useSession } from "@/lib/auth/auth-client"
-const items = [
-  {
-    title: "Short title",
-    url: "#",
-  },
-  {
-    title: "User greeting",
-    url: "#",
-  },
-  {
-    title: "New Thread",
-    url: "#",
-  },
-  {
-    title: "Python code for hello world",
-    url: "#",
-  },
-]
+import { useState, useEffect } from "react"
+import { Chat } from "@prisma/client"
 
 export function AppSidebar() {
   const { 
@@ -46,7 +30,18 @@ export function AppSidebar() {
   
   const router = useRouter();
   const { data: session } = useSession();
+  const [chats, setChats] = useState<Chat[]>([]);
   
+  useEffect(() => {
+      const fetchChats = async () => {
+        const response = await fetch("/api/chat");
+        const data = await response.json();
+        setChats(data);
+    }
+    fetchChats();
+  }, []);
+
+
   return (
     <Sidebar className="select-none" variant="floating">
       <SidebarHeader className="pt-3">
@@ -68,12 +63,12 @@ export function AppSidebar() {
         </div>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item, idx) => (
+              {chats && chats.map((item, idx) => (
                 <SidebarMenuItem key={idx}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <span className="py-3">{item.title}</span>
-                    </a>
+                    <Link href={`/chat/${item.id}`}>
+                      <span className="py-3 text-xs text-foreground/80">{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

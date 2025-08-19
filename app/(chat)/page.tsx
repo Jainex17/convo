@@ -1,15 +1,13 @@
 "use client";
 
-import { useRef } from "react";
 import Chat from "@/components/Chat";
 
 export default function Page() {
-  const chatIdRef = useRef<string>(crypto.randomUUID());
-  const chatId = chatIdRef.current;
+  const chatId = crypto.randomUUID();
 
   return (
     <div className="w-full min-h-screen">
-      <Chat id={chatId}/>
+      <Chat id={chatId} initialMessages={[]}/>
     </div>
   );
 }

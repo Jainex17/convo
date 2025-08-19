@@ -143,8 +143,8 @@ export const MessageInput = ({ onSendMessage, isLoading: externalLoading }: Mess
                   </div>
                 )}
               </div>
-              <Button variant="secondary" className="py-5 cursor-pointer" type="submit" disabled={isLoading || !message.trim()}>
-                {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowUp className="size-5" />}
+              <Button variant="secondary" className="cursor-pointer" type="submit" disabled={isLoading || !message.trim()}>
+                {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowUp className="size-4" />}
               </Button>
             </div>
           </div>

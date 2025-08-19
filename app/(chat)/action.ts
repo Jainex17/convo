@@ -7,6 +7,8 @@ export async function generateTitleFromUserMessage({
   }: {
     message: UIMessage;
   }) {
+    console.log("title function message", message);
+    
     const { text: title } = await generateText({
       model: google('gemini-2.0-flash'),
       system: `\n
